@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kids Shorts</title>
+
+<style>
+*{box-sizing:border-box}
+ .logoKids{
+position:fixed;
+top:18px;
+left:50%;
+transform:translateX(-50%);
+z-index:15;
+;background:transparent;
+color:#fff;
+padding:10px 18px;
+border-radius:25px;
+font-size:22px;
+font-weight:800;
+cursor:pointer;
+transition:transform .15s;
+text-shadow:0 2px 4px #0003;
+box-shadow:0 3px 10px #0002;
+.logoKids:active{
+transform:translateX(-50%) scale(.95);
+   }
+  }
+.subLogo{
+position:fixed;
+top:68px;
+left:50%;
+transform:translateX(-50%);
+z-index:20;
+color:#fff;
+font-size:20px;
+font-weight:600;
+text-shadow:0 2px 4px #0005;
+white-space:nowrap;
+animation:subLogoEntrada 1s ease 1.2s both;
+@keyframes subLogoEntrada{
+ 0%{
+  opacity:0;
+    transform:translateX(-50%) translateY(10px);
+  }
+
+  100%{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+  }
+  }
+  }
+body{
+  margin:0;
+  font-family:Arial;
+  background:#000;
+  color:#fff;
+  overflow:hidden;
+}
+
+.feed{
+  height:100vh;
+  width:100%;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+}
+
+.video{
+  position:relative;
+  width:100%;
+  height:100vh;
+  min-height:100vh;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  overflow:hidden;
+  background:#000;
+}
+
+.video iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  object-fit:cover;
+}
+
+.videoInfo{
+  position:absolute;
+  left:0;
+  right:80px;
+  bottom:90px;
+  z-index:10;
+  padding:20px;
+  text-align:left;
+  background:linear-gradient(
+    transparent,
+    rgba(0,0,0,.75)
+  );
+  padding-top:80px;
+}
+
+.videoInfo h2{
+  font-size:25px;
+  margin:0 0 8px;
+  text-shadow:0 2px 5px #000;
+}
+
+.videoInfo p{
+  margin:0;
+  font-size:16px;
+  line-height:1.4;
+  text-shadow:0 2px 4px #000;
+}
+
+.video .botoes{
+  position:absolute;
+  right:12px;
+  bottom:105px;
+  z-index:12;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin:0;
+}
+
+.video .botoes button{
+  border:0;
+  background:#0008;
+  color:#fff;
+  border-radius:50%;
+  width:54px;
+  height:54px;
+  font-size:25px;
+  backdrop-filter:blur(5px);
+}
+
+.video .botoes button:active{
+  transform:scale(.9);
+}
+
+.video video,
+.video iframe{
+  touch-action:auto;
+}
+.video1{background:linear-gradient(160deg,#4facfe,#00f2fe)}
+.video2{background:linear-gradient(160deg,#667eea,#764ba2)}
+.video3{background:linear-gradient(160deg,#ff758c,#ff7eb3)}
+.emoji{
+  font-size:90px;
+  animation:emojiEntrada .7s ease both;
+  }
+  
+  @keyframes emojiEntrada{
+  0%{
+    opacity:0;
+    transform:scale(.6) translateY(20px);
+  }
+
+  70%{
+    transform:scale(1.08) translateY(-4px);
+  }
+
+  100%{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
+  }
+.video h2{   font-size:30px;   margin:15px 0 8px;   text-shadow:0 3px 6px #0005;   animation:tituloEntrada .7s ease both; }
+ 
+  @keyframes tituloEntrada{
+  0%{
+    opacity:0;
+    transform:translateY(15px);
+  }
+
+  100%{
+    opacity:1;
+    transform:translateY(0);
+  }
+  }
+  .video p{max-width:330px;font-size:18px}
+.botoes{display:flex;gap:18px;margin-top:25px}
+.botoes button{border:0;background:#ffffff40;color:#fff;border-radius:50%;width:58px;height:58px;font-size:26px}
+.menu{position:fixed;bottom:0;width:100%;height:70px;background:#000d;display:flex;justify-content:space-around;align-items:center;z-index:20}
+.menu button{border:0;background:none;color:#fff;font-size:12px}.menu span{display:block;font-size:23px}
+.tela{position:fixed;inset:0;background:#f5f7fb;color:#222;z-index:30;overflow-y:auto;padding:25px 25px 100px}
+.fechar{float:right;border:0;border-radius:50%;width:42px;height:42px;font-size:22px}
+.titulo{text-align:center;margin-top:15px}
+.busca{width:100%;padding:16px;border:1px solid #ddd;border-radius:15px;font-size:16px;margin-top:25px}
+.categorias{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.categorias button,.tempo,.controle button{border:0;padding:13px 16px;border-radius:14px;background:#e8ebff;font-weight:bold; transition:transform .15s;} 
+.resultado,.item,.card,.controle{background:#fff;margin-top:25px;padding:20px;border-radius:20px;box-shadow:0 3px 10px #0001}
+.item button{margin-top:10px;border:0;background:#ff5c7a;color:#fff;padding:10px;border-radius:10px}
+.avatar{font-size:70px;text-align:center}
+.estatisticas{display:flex;justify-content:space-around;text-align:center}
+.estatisticas strong{display:block;font-size:25px}
+.pin{text-align:center;max-width:350px;margin:80px auto}
+.pin input{width:100%;padding:15px;border-radius:12px;border:1px solid #ccc;font-size:20px;text-align:center}
+.pin button{margin-top:15px;padding:14px 25px;border:0;border-radius:12px;background:#667eea;color:#fff;font-weight:bold}
+.opcoes{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.tempo.ativo{background:#667eea;color:#fff}
+.tempo-atual,.restante{margin-top:15px;padding:14px;background:#f1f3f8;border-radius:14px;font-weight:bold}
+#telaBloqueio{display:none;position:fixed;inset:0;z-index:100;background:linear-gradient(160deg,#667eea,#764ba2);color:#fff;align-items:center;justify-content:center;text-align:center;padding:30px}
+#telaBloqueio button{padding:15px 25px;border:0;border-radius:15px;font-weight:bold}
+.categorias button:active{
+transform:scale(.95);
+  }
+  .resultado{
+  background:#fff;
+  border-radius:16px;
+  padding:14px;
+  margin:12px 0;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
+  transition:transform .15s, box-shadow .15s;
+}
+
+.resultado:active{
+  transform:scale(.98);
+  box-shadow:0 2px 6px rgba(0,0,0,.12);
+}
+
+.resultado h3{
+  margin:0 0 6px;
+  font-size:18px;
+}
+
+.resultado p{
+  margin:0;
+  font-size:14px;
+  line-height:1.4;
+  opacity:.75;
+}
+  
+  #telaEntrada{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:linear-gradient(135deg,#fff7e6,#eaf7ff);
+  color:#333;
+}
+
+.ursinhoEntrada{
+  font-size:90px;
+  margin-bottom:10px;
+  animation: entradaUrsinho 1.5s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+@keyframes entradaUrsinho{
+  0%{
+    opacity:0;
+    transform:scale(0.2) translateY(60px);
+  }
+
+  45%{
+    opacity:1;
+    transform:scale(1.15) translateY(-15px);
+  }
+
+  65%{
+    transform:scale(.92) translateY(5px);
+  }
+
+  82%{
+    transform:scale(1.05) translateY(-4px);
+  }
+
+  100%{
+    transform:scale(1) translateY(0);
+  }
+}
+
+@keyframes pularUrsinho{
+  0%, 100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-12px);
+  }
+}
+
+#telaEntrada h1{
+margin:0;
+font-size:32px;
+animation:nomeEntrada 1s ease 0.7s both; }
+@keyframes nomeEntrada{
+  0%{
+    opacity:0;
+    transform:translateY(15px);
+  }
+
+  100%{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+#telaEntrada p{
+  font-size:18px;
+  margin-top:8px;
+  animation:subtituloEntrada 1s ease 1s both;
+}
+  @keyframes subtituloEntrada{
+  0%{
+    opacity:0;
+    transform:translateY(12px);
+  }
+
+  100%{
+    opacity:1;
+    transform:translateY(0);
+  }
+  }
+#telaEntrada.saindo{
+  opacity:0;
+  transition:opacity 0.8s ease;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+<div id="telaEntrada">
+<div class="ursinhoEntrada">🧸</div>
+<h1>Kids Shorts</h1>
+<p>Um mundo de diversão! ✨</p>
+</div>
+
+<div class="feed">
+<div class="logoKids" onclick="irInicio()">🧸 Kids Shorts</div>
+<div class="subLogo">Diversão segura para crianças!❤️</div>
+
+<section class="video video1">
+
+<iframe
+  src="https://www.youtube.com/embed/6XzG2fRHmIU?autoplay=1&mute=1&playsinline=1&rel=0"
+  title="O Leão Corajoso"
+  allow="autoplay; encrypted-media; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
+<div class="videoInfo">
+  <h2>🦁 O Leão Corajoso</h2>
+  <p>Aprenda que ser corajoso também significa pedir ajuda quando precisamos.</p>
+</div>
+
+<div class="botoes">
+  <button onclick="curtir(this)">♡</button>
+  <button onclick="salvar('leao')">⭐</button>
+  <button onclick="compartilhar()">➸</button>
+</div>
+
+</section>
+
+
+<section class="video video2">
+
+<iframe
+  src="https://www.youtube.com/embed/SEU_VIDEO_2?autoplay=1&mute=1&playsinline=1&rel=0"
+  title="Viagem pelo Espaço"
+  allow="autoplay; encrypted-media; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
+<div class="videoInfo">
+  <h2>🚀 Viagem pelo Espaço</h2>
+  <p>Vamos descobrir curiosidades incríveis sobre planetas e estrelas!</p>
+</div>
+
+<div class="botoes">
+  <button onclick="curtir(this)">♡</button>
+  <button onclick="salvar('espaco')">⭐</button>
+  <button onclick="compartilhar()">➸</button>
+</div>
+
+</section>
+
+
+<section class="video video3">
+
+<iframe
+  src="https://www.youtube.com/embed/SEU_VIDEO_3?autoplay=1&mute=1&playsinline=1&rel=0"
+  title="O Mundo dos Unicórnios"
+  allow="autoplay; encrypted-media; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
+<div class="videoInfo">
+  <h2>🦄 O Mundo dos Unicórnios</h2>
+  <p>Uma aventura divertida em um mundo cheio de imaginação!</p>
+</div>
+
+<div class="botoes">
+  <button onclick="curtir(this)">♡</button>
+  <button onclick="salvar('unicornio')">⭐</button>
+  <button onclick="compartilhar()">➸</button>
+</div>
+
+</section>
+
+</div>
+
+<div class="tela" id="descobrir" style="display:none">
+<button class="fechar" onclick="fecharTelas()">×</button>
+<h1 class="titulo">🔎 Descobrir</h1>
+<input class="busca" id="campoBusca" placeholder="O que você quer descobrir?" oninput="pesquisar()">
+<div class="categorias">
+<button onclick="categoria('animais')">🐾 Animais</button>
+<button onclick="categoria('espaco')">🚀 Espaço</button>
+<button onclick="categoria('aventuras')">🗺️ Aventuras</button>
+<button onclick="categoria('imaginacao')">🦄 Imaginação</button>
+</div>
+<div class="resultado" id="resultadoBusca">Escolha uma categoria ou pesquise acima.</div>
+</div>
+<div class="tela" id="salvos" style="display:none">
+<button class="fechar" onclick="fecharTelas()">×</button>
+<h1 class="titulo">⭐ Salvos</h1>
+<div id="listaSalvos"></div>
+</div>
+
+<div class="tela" id="perfil" style="display:none">
+<button class="fechar" onclick="fecharTelas()">×</button>
+<h1 class="titulo">👤 Perfil</h1>
+<div class="card">
+<div class="avatar">🌟</div>
+<h2 style="text-align:center">Kids Shorts</h2>
+<div class="estatisticas">
+<div><strong id="quantidadeSalvos">0</strong>Salvos</div>
+<div><strong id="quantidadeCurtidas">0</strong>Curtidas</div>
+</div>
+<p style="text-align:center">Bem-vindo ao Kids Shorts!❤️</p>
+</div>
+</div>
+
+<div class="tela" id="pais" style="display:none">
+<button class="fechar" onclick="fecharTelas()">×</button>
+
+<div id="pinArea" class="pin">
+<h1>👨‍👩‍👧 Área dos Pais</h1>
+<p>Digite o PIN para acessar os controles.</p>
+<button
+  onclick="entrarGoogle()"
+  style="width:100%;padding:15px;border:0;border-radius:15px;background:#fff;box-shadow:0 2px 8px #0002;font-size:16px;font-weight:bold;cursor:pointer;">
+  🔵 Entrar com Google
+</button>
+
+<p style="text-align:center;color:#777;font-size:13px;">
+  Conexão segura com sua conta Google
+</p>
+<input id="pinInput" type="password" inputmode="numeric" maxlength="4" placeholder="PIN">
+<button onclick="verificarPin()">Entrar</button>
+<p id="pinMensagem"></p>
+</div>
+
+<div id="painelPais" style="display:none">
+<h1 class="titulo">👨‍👩‍👧 Controle dos Pais</h1>
+
+<div class="controle">
+<strong>⏱️ Tempo de uso</strong>
+<p>Escolha quanto tempo a criança poderá usar o aplicativo.</p>
+
+<div class="opcoes">
+<button class="tempo" data-t="15" onclick="definirTempo(15)">15 min</button>
+<button class="tempo" data-t="30" onclick="definirTempo(30)">30 min</button>
+<button class="tempo" data-t="60" onclick="definirTempo(60)">1 hora</button>
+<button class="tempo" data-t="120" onclick="definirTempo(120)">2 horas</button>
+<button class="tempo" data-t="180" onclick="definirTempo(180)">3 horas</button>
+<button class="tempo" data-t="240" onclick="definirTempo(240)">4 horas</button>
+<button class="tempo" data-t="0" onclick="definirTempo(0)">♾️ Sem limite</button>
+</div>
+
+<div class="tempo-atual" id="tempoAtual">Nenhum limite escolhido.</div>
+<div class="restante" id="tempoRestante">⏳ Tempo restante: —</div>
+</div>
+
+<div class="controle">
+<strong>🔒 Bloquear aplicativo</strong>
+<p>Os pais podem bloquear o uso do Kids Shorts.</p>
+<button onclick="bloquearAplicativo()">🔒 Bloquear agora</button>
+</div>
+
+<div class="controle">
+<strong>🛡️ Modo seguro</strong>
+<p>Configuração de conteúdos apropriados para crianças.</p>
+<p id="seguroAtual" style="color:#666;font-weight:bold;">Modo Seguro: Desativado</p>
+<button id="botaoSeguro" onclick="modoSeguro()">Configurar</button>
+</div>
+
+<div class="controle">
+<strong>👶 Controle de idade</strong>
+<p>Escolha conteúdos adequados para a faixa etária.</p>
+<p id="idadeAtual" style="color:#666;font-weight:bold;">Nenhuma faixa selecionada</p>
+<button id="botaoIdade" onclick="controleIdade()">Alterar faixa</button>
+</div>
+
+</div>
+</div>
+
+<div id="telaBloqueio">
+<div>
+<div style="font-size:80px">🔒</div>
+<h1>Kids Shorts bloqueado</h1>
+<p>O aplicativo está bloqueado pelos pais.</p>
+<button onclick="abrirDesbloqueio()">🔑 Área dos Pais</button>
+</div>
+</div>
+
+<div class="menu">
+<button onclick="abrirDescobrir()"><span>🔎</span>Descobrir</button>
+<button onclick="irInicio()"><span>🏠</span>Início</button>
+<button onclick="abrirSalvos()"><span>⭐</span>Salvos</button>
+<button onclick="abrirPerfil()"><span>👤</span>Perfil</button>
+<button onclick="abrirPais()"><span>👨‍👩‍👧</span>Pais</button>
+</div>
+
+<script>
+var contador=null;
+
+function curtir(b){
+var ativo=b.innerText==="❤️";
+b.innerText=ativo?"♡":"❤️";
+var n=parseInt(localStorage.getItem("kidiCurtidas")||"0");
+n+=ativo?-1:1;
+if(n<0)n=0;
+localStorage.setItem("kidiCurtidas",n);
+atualizarPerfil();
+}
+
+function salvar(id){
+var s=JSON.parse(localStorage.getItem("kidiSalvos")||"[]");
+var p=s.indexOf(id);
+if(p<0)s.push(id);else s.splice(p,1);
+localStorage.setItem("kidiSalvos",JSON.stringify(s));
+atualizarSalvos();
+atualizarPerfil();
+}
+
+function atualizarSalvos(){
+var s=JSON.parse(localStorage.getItem("kidiSalvos")||"[]");
+var l=document.getElementById("listaSalvos");
+var nomes={leao:"🦁 O Leão Corajoso",espaco:"🚀 Viagem pelo Espaço",unicornio:"🦄 O Mundo dos Unicórnios"};
+if(!s.length){l.innerHTML="<div class='item'>Você ainda não salvou nenhum vídeo. ⭐</div>";return}
+l.innerHTML="";
+s.forEach(function(id){
+var d=document.createElement("div");
+d.className="item";
+d.innerHTML="<strong>"+nomes[id]+"</strong><br><button onclick=\"removerSalvo('"+id+"')\">Remover</button>";
+l.appendChild(d);
+});
+}
+
+function removerSalvo(id){
+var s=JSON.parse(localStorage.getItem("kidiSalvos")||"[]");
+s=s.filter(function(x){return x!==id});
+localStorage.setItem("kidiSalvos",JSON.stringify(s));
+atualizarSalvos();
+atualizarPerfil();
+}
+
+function atualizarPerfil(){
+var s=JSON.parse(localStorage.getItem("kidiSalvos")||"[]");
+var c=parseInt(localStorage.getItem("kidiCurtidas")||"0");
+document.getElementById("quantidadeSalvos").innerText=s.length;
+document.getElementById("quantidadeCurtidas").innerText=c;
+}
+
+function fecharTelas(){
+["descobrir","salvos","perfil","pais"].forEach(function(x){
+document.getElementById(x).style.display="none";
+});
+}
+
+function abrirDescobrir(){fecharTelas();document.getElementById("descobrir").style.display="block"}
+function abrirSalvos(){fecharTelas();document.getElementById("salvos").style.display="block";atualizarSalvos()}
+function abrirPerfil(){fecharTelas();document.getElementById("perfil").style.display="block";atualizarPerfil()}
+function abrirPais(){
+fecharTelas();
+document.getElementById("pais").style.display="block";
+document.getElementById("pinArea").style.display="block";
+document.getElementById("painelPais").style.display="none";
+document.getElementById("pinInput").value="";
+document.getElementById("pinMensagem").innerText="";
+}
+
+function irInicio(){
+fecharTelas();
+document.querySelector(".feed").scrollTo({top:0,behavior:"smooth"});
+}
+
+function categoria(x){
+document.getElementById("campoBusca").value=x;
+pesquisar();
+}
+
+function pesquisar(){
+var t=document.getElementById("campoBusca").value.toLowerCase();
+var r=document.getElementById("resultadoBusca");
+if(!t){r.innerHTML="Escolha uma categoria ou pesquise acima.";return}
+var c=[
+["🦁 O Leão Corajoso","animais leao aventura coragem"],
+["🚀 Viagem pelo Espaço","espaco planetas estrelas ciencia"],
+["🦄 O Mundo dos Unicórnios","imaginacao unicornio aventuras fantasia"]
+];
+var e=c.filter(function(x){return x[0].toLowerCase().includes(t)||x[1].includes(t)});
+if(!e.length){r.innerHTML="🔎 Não encontramos esse conteúdo ainda.";return}
+r.innerHTML=e.map(function(x){return "<div style='padding:12px 0'><strong>"+x[0]+"</strong></div>"}).join("");
+}
+
+function compartilhar(){
+if(navigator.share)navigator.share({title:"Kids Shorts",text:"Olha esse conteúdo divertido do Kids Shorts!"});
+else alert("📤 Compartilhamento disponível quando o aplicativo estiver instalado.");
+}
+
+function modoSeguro(){
+var atual=localStorage.getItem("kidiModoSeguro")||"desligado";
+var aviso=document.getElementById("avisoSeguro");
+
+if(atual==="ligado"){
+localStorage.setItem("kidiModoSeguro","desligado");
+document.getElementById("seguroAtual").textContent="Modo Seguro: Desativado";
+document.getElementById("botaoSeguro").textContent="Ativar Modo Seguro";
+if(aviso)aviso.style.display="none";
+alert("🛡️ Modo Seguro desativado.");
+}else{
+localStorage.setItem("kidiModoSeguro","ligado");
+document.getElementById("seguroAtual").textContent="Modo Seguro: Ativado";
+document.getElementById("botaoSeguro").textContent="Desativar Modo Seguro";
+if(aviso)aviso.style.display="block";
+alert("🛡️ Modo Seguro ativado!");  
+}
+}  
+  function controleIdade(){
+var idade=prompt("👶 Escolha a faixa etária:\n1 - Até 6 anos\n2 - 7 a 9 anos\n3 - 10 a 12 anos");
+
+if(idade==="1"||idade==="2"||idade==="3"){
+var nome=idade==="1"?"Até 6 anos":idade==="2"?"7 a 9 anos":"10 a 12 anos";
+localStorage.setItem("kidiIdade",idade);
+document.getElementById("idadeAtual").textContent="Faixa escolhida: "+nome;
+document.getElementById("botaoIdade").textContent="Alterar: "+nome;
+alert("👶 Faixa etária salva!\n\n"+nome+" ✅");
+}else{
+alert("❌ Escolha 1, 2 ou 3.");
+}
+  }
+
+function verificarPin(){
+if(document.getElementById("pinInput").value==="1234"){
+document.getElementById("pinArea").style.display="none";
+document.getElementById("painelPais").style.display="block";
+mostrarTempo();
+iniciarContador();
+}else{
+document.getElementById("pinMensagem").innerText="PIN incorreto. Tente novamente.";
+}
+}
+
+function formatarTempo(m){
+m=parseInt(m);
+if(m===0)return"Sem limite";
+if(m<60)return m+" minutos";
+return(m/60)+" hora"+(m>60?"s":"");
+}
+
+function definirTempo(m){
+localStorage.setItem("kidiTempoLimite",m);
+if(m===0){
+localStorage.removeItem("kidiInicio");
+}else{
+localStorage.setItem("kidiInicio",Date.now());
+}
+mostrarTempo();
+iniciarContador();
+alert("⏱️ Limite definido para "+formatarTempo(m)+".");
+}
+
+function mostrarTempo(){
+var t=localStorage.getItem("kidiTempoLimite");
+var e=document.getElementById("tempoAtual");
+if(t===null)e.innerText="Nenhum limite escolhido.";
+else e.innerText="⏱️ Limite atual: "+formatarTempo(t)+".";
+document.querySelectorAll(".tempo").forEach(function(b){
+b.classList.toggle("ativo",b.dataset.t===String(t));
+});
+}
+
+function iniciarContador(){
+if(contador)clearInterval(contador);
+contador=setInterval(atualizarContador,1000);
+atualizarContador();
+}
+
+function atualizarContador(){
+var limite=parseInt(localStorage.getItem("kidiTempoLimite")||"0");
+var inicio=parseInt(localStorage.getItem("kidiInicio")||"0");
+var e=document.getElementById("tempoRestante");
+if(!e)return;
+
+if(limite===0){
+e.innerText="⏳ Tempo restante: Sem limite";
+return;
+}
+
+if(!inicio){
+e.innerText="⏳ Tempo restante: —";
+return;
+}
+
+var restante=(limite*60000)-(Date.now()-inicio);
+var min=Math.ceil(restante/60000);
+
+if(restante<=0){
+e.innerText="⏰ Tempo esgotado!";
+bloquearAplicativo();
+clearInterval(contador);
+return;
+}
+
+e.innerText="⏳ Tempo restante: "+min+" min";
+}
+
+function bloquearAplicativo(){
+localStorage.setItem("kidiAplicativoBloqueado","true");
+document.getElementById("telaBloqueio").style.display
