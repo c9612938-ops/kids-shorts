@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kids Shorts</title>
@@ -446,15 +447,7 @@ animation:nomeEntrada 1s ease 0.7s both; }
 <div id="pinArea" class="pin">
 <h1>👨‍👩‍👧 Área dos Pais</h1>
 <p>Digite o PIN para acessar os controles.</p>
-<button
-  onclick="entrarGoogle()"
-  style="width:100%;padding:15px;border:0;border-radius:15px;background:#fff;box-shadow:0 2px 8px #0002;font-size:16px;font-weight:bold;cursor:pointer;">
-  🔵 Entrar com Google
-</button>
 
-<p style="text-align:center;color:#777;font-size:13px;">
-  Conexão segura com sua conta Google
-</p>
 <input id="pinInput" type="password" inputmode="numeric" maxlength="4" placeholder="PIN">
 <button onclick="verificarPin()">Entrar</button>
 <p id="pinMensagem"></p>
@@ -462,7 +455,20 @@ animation:nomeEntrada 1s ease 0.7s both; }
 
 <div id="painelPais" style="display:none">
 <h1 class="titulo">👨‍👩‍👧 Controle dos Pais</h1>
+<div class="controle">
+  <strong>🔐 Conta do responsável</strong>
+  <p>Entre com sua conta Google para usar recursos da área dos pais.</p>
 
+  <button
+    onclick="entrarGoogle()"
+    style="width:100%;padding:15px;border:0;border-radius:15px;background:#fff;box-shadow:0 2px 8px #0002;font-size:16px;font-weight:bold;cursor:pointer;">
+    🔵 Entrar com Google
+  </button>
+
+  <p style="text-align:center;color:#777;font-size:13px;">
+    Conexão segura com sua conta Google
+  </p>
+</div>
 <div class="controle">
 <strong>⏱️ Tempo de uso</strong>
 <p>Escolha quanto tempo a criança poderá usar o aplicativo.</p>
@@ -831,6 +837,29 @@ document.addEventListener("click", function tocarNoPrimeiroToque(){
   }
 }, 1800);
 
+// COLE O CÓDIGO DO GOOGLE AQUI
+
+function entrarGoogle(){
+
+  google.accounts.id.initialize({
+    client_id: "385212686787-m5l6a4td1jtt1vsta9emulfmapq3ca4l.apps.googleusercontent.com",
+    callback: respostaGoogle
+  });
+
+  google.accounts.id.prompt();
+}
+
+function respostaGoogle(resposta){
+
+  const dados = JSON.parse(
+    atob(resposta.credential.split(".")[1])
+  );
+
+  alert("Bem-vindo(a), " + (dados.name || "responsável") + "!");
+
+  localStorage.setItem("kidiGoogleNome", dados.name || "");
+  localStorage.setItem("kidiGoogleEmail", dados.email || "");
+}
 
 </script>
   
