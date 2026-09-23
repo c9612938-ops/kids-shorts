@@ -729,3 +729,114 @@ e.innerText="⏳ Tempo restante: "+min+" min";
 function bloquearAplicativo(){
 localStorage.setItem("kidiAplicativoBloqueado","true");
 document.getElementById("telaBloqueio").style.display
+ }
+
+function abrirDesbloqueio(){
+var pin=prompt("🔑 Digite o PIN dos pais:");
+if(pin==="1234"){
+localStorage.removeItem("kidiAplicativoBloqueado");
+document.getElementById("telaBloqueio").style.display="none";
+alert("🔓 Aplicativo desbloqueado!");
+}else alert("❌ PIN incorreto.");
+}
+ var limite=parseInt(localStorage.getItem("kidiTempoLimite")||"0");
+var inicio=parseInt(localStorage.getItem("kidiInicio")||"0");
+
+if(limite>0 && inicio>0 && (Date.now()-inicio)>=(limite*60000)){
+  localStorage.setItem("kidiAplicativoBloqueado","true");
+}
+function verificarBloqueio(){
+if(localStorage.getItem("kidiAplicativoBloqueado")==="true"){
+document.getElementById("telaBloqueio").style.display="flex";
+}
+}
+
+atualizarSalvos();
+  var idadeSalva=localStorage.getItem("kidiIdade");
+var nomesIdade={"1":"Até 6 anos","2":"7 a 9 anos","3":"10 a 12 anos"};
+if(idadeSalva && document.getElementById("idadeAtual")){
+document.getElementById("idadeAtual").textContent="Faixa escolhida: "+nomesIdade[idadeSalva];
+document.getElementById("botaoIdade").textContent="Alterar: "+nomesIdade[idadeSalva];
+}
+atualizarPerfil();
+verificarBloqueio();
+mostrarTempo();
+iniciarContador();
+function tocarSomEntrada(){
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if(!AudioContext) return;
+
+  const audio = new AudioContext();
+
+  if(audio.state === "suspended"){
+    audio.resume();
+  }
+
+  const agora = audio.currentTime;
+
+  const notas = [
+    {frequencia:523.25, inicio:0},
+    {frequencia:659.25, inicio:0.12},
+    {frequencia:783.99, inicio:0.24}
+  ];
+
+  notas.forEach(nota => {
+    const oscilador = audio.createOscillator();
+    const volume = audio.createGain();
+
+    oscilador.type = "sine";
+
+    oscilador.frequency.setValueAtTime(
+      nota.frequencia,
+      agora + nota.inicio
+    );
+
+    volume.gain.setValueAtTime(
+      0.001,
+      agora + nota.inicio
+    );
+
+    volume.gain.exponentialRampToValueAtTime(
+      0.16,
+      agora + nota.inicio + 0.03
+    );
+
+    volume.gain.exponentialRampToValueAtTime(
+      0.001,
+      agora + nota.inicio + 0.28
+    );
+
+    oscilador.connect(volume);
+    volume.connect(audio.destination);
+
+    oscilador.start(agora + nota.inicio);
+    oscilador.stop(agora + nota.inicio + 0.3);
+  });
+}
+document.addEventListener("click", function tocarNoPrimeiroToque(){
+  tocarSomEntrada();
+}, { once:true });
+  window.addEventListener("load", function(){
+  tocarSomEntrada();
+});
+ setTimeout(function(){
+  const tela = document.getElementById("telaEntrada");
+
+  if(tela){
+    tela.classList.add("saindo");
+
+    setTimeout(function(){
+      tela.style.display = "none";
+    }, 800);
+  }
+}, 1800);
+
+
+</script>
+  
+<<div id="avisoSeguro" style="display:none;position:fixed;top:10px;left:50%;transform:translateX(-50%);background:#fff;padding:10px 16px;border-radius:20px;z-index:9999;box-shadow:0 2px 8px #0003;">
+🛡️ Modo Seguro ativado
+</div>
+
+</body>
+</html>
